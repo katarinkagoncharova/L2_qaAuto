@@ -1,17 +1,13 @@
-﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Interactions;
-using System.Collections.ObjectModel;
-using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
-using System.Reflection.Metadata;
-using OpenQA.Selenium.Support.Events;
-
-namespace Rambler
+using OpenQA.Selenium;
+using Rambler;
+namespace RamblerTests
 {
-    public class Program
+    [TestClass]
+    public class RamblerTests
     {
-        static void Main(string[] args)
+        [TestMethod]
+        public void TestMethod1()
         {
             IWebDriver driver = new ChromeDriver();
             var ramblerPage = new RamblerHomePage(driver);
@@ -21,7 +17,7 @@ namespace Rambler
             ramblerInBoxPage.WriteLetter("test_user_10001@rambler.ru", "First", " Hello!");
             ramblerPage = ramblerInBoxPage.SingOut();
 
-            Thread.Sleep(1000);
+            
             ramblerPage.ClickButtonMail();
             ramblerPage.LogIn("test_user_10001@rambler.ru", "Test10001");
             ramblerInBoxPage = ramblerPage.InBox();
@@ -30,16 +26,17 @@ namespace Rambler
             firstLetterPage.ReplyToLetter("Bye!");
             ramblerPage = firstLetterPage.SingOut();
 
-            Thread.Sleep(1000);
+            
             ramblerPage.ClickButtonMail();
+            
             ramblerPage.LogIn("test_user_10000@rambler.ru", "Test00001");
             ramblerInBoxPage = ramblerPage.InBox();
             firstLetterPage = ramblerInBoxPage.InfoFirstLetter();
             var text2 = firstLetterPage.GetTextFirstLetter();
 
+            Assert.AreEqual(text, "Hello!");
+
             driver.Quit();
-            
-            Console.WriteLine("Hello");
         }
     }
 }

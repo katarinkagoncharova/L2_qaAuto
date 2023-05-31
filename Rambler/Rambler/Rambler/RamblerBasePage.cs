@@ -38,6 +38,13 @@ namespace Rambler
             return _wait.Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(By.XPath(xPath)));
         }
 
+        public ReadOnlyCollection<IWebElement> FindRamblerFrames(string tagName)
+        {
+            return _wait.Until(ExpectedConditions.PresenceOfAllElementsLocatedBy(By.TagName(tagName)));
+        }
+
+
+
         public IWebElement FindDRamblerElement(string xPath)
         {
 
